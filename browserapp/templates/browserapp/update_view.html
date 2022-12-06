@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Edit a Game</title>
+{% endblock title %}
+
+
+{% block pagebio %}
+<div class="d-flex justify-content-center">
+    <h2 id = "pageBio" class = "">Edit a game</h2>
+</div>
+{% endblock pagebio %}
+
+{% block content %}
+
+    <form method="POST" id = "editForm" enctype="multipart/form-data">
+
+    <!-- Security token -->
+    {% csrf_token %}
+
+    <!-- Using the formset -->
+    {{ form.as_p }}
+    
+    <div class="form-actions d-grid gap-2 col-2 mx-auto">
+        <input class = "btn btn-primary" type="submit" value="Update">
+    </div>
+    
+    </form>
+
+{% endblock content %}

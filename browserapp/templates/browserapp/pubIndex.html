@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load auth_extras %}
+
+{% block title %}
+    <title>Publisher Browser</title>
+{% endblock title %}
+
+
+{% block pagebio %}
+<div class="d-flex justify-content-center">
+    <h2 id = "pageBio" class = "">Browse our database for publishers!</h2>
+</div>
+{% endblock pagebio %}
+
+
+{% block content %}
+
+<!-- Dynamically generated same way as index view -->
+
+<div id = "topratedPanel">
+    <h3><strong>Publishers</strong></h3>
+
+<div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    {% for publisher in publisher_list %}
+    <div class="col">
+      <div class="card h-100" style="width: 322px;">
+
+        <a href = "{% url 'browserapp:publisher_detail' publisher.publisherID %}">
+            <!-- <img src="../../../static/defaultcard.jpg" class="card-img-top" alt="{{ game.title }}"> -->
+            <img src="{{ publisher.publisherImage.url }}" class="card-img-top" alt="{{ publisher.publisherName }}">
+        </a>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ publisher.publisherName | truncatechars:40}}&nbsp;&nbsp;
+            <!-- <span class="badge text-bg-danger">Flash</span> -->
+          </h5>
+          <p class="card-text">{{ publisher.publisherDescription | truncatechars:250}}</p>
+        </div>
+        <div class="card-footer">
+          <small class="">Last updated: {{ publisher.updatedTime }}</small>
+        </div>
+      </div>
+
+    
+
+    </div>
+    {% endfor %}
+
+    
+</div>
+
+</div>
+
+
+<!-- Buttons depending on who is logged in and to switch views -->
+
+<div id = "userButtons"> 
+
+<div id = "browseSwitch">
+  <input class = "btn btn-warning" type="button" onclick="location.href='{% url 'browserapp:browse_index' %}';" value="BROWSE GAMES" />
+</div>
+
+{% if request.user.is_superuser or request.user|has_group:"GamesAdminUsers" %}
+  <div id = "uploadButton">
+  <input class = "btn btn-warning" type = "button" onclick = "location.href = '{% url 'browserapp:publisher_upload' %}';" value = "UPLOAD A PUBLISHER" />
+  </div>
+{% endif %}
+
+</div>
+
+
+{% endblock content %}

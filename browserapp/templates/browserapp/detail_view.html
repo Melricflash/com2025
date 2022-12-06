@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+{% load auth_extras %}
+
+
+{% block pagebio %}
+
+<div class="d-flex justify-content-center">
+    <h2 id = "pageBio" class = "">{{ game.title }}</h2>
+</div>
+
+{% endblock pagebio %}
+
+
+{% block content %}
+
+<body>
+
+<!-- WHEN LOADING THE JAVASCRIPT FILE FROM STATIC, MUST BE PLACED INSIDE BODY -->
+<script type="text/javascript" src="{% static 'js/browserapp.js' %}"></script>
+
+<div id = "gameDetails">
+
+    <div class = "d-flex justify-content-center">
+
+    <div class="card mb-3" id = "detailCard" style = "max-width: 1080px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <!-- <img src="../../../static/defaultcard.jpg" class="img-fluid rounded-start" alt="{{ game.title }}"> -->
+
+            <!-- Retrieve game cover -->
+            <img src="{{ game.coverImage.url }}" class="img-fluid rounded-start" alt="{{ game.title }}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">{{game.title}}</h2>
+
+              <!-- Link to the related game's publisher -->
+              <h4 class = "card-subtitle">By <a class = "card-link" href = "{% url 'browserapp:publisher_detail' game.gamePublisher.publisherID %}"><strong>{{game.gamePublisher.publisherName}}</strong> </a>
+              </h4>
+
+              <br>
+
+              <h6 class="card-text">{{ game.description }}</h6>
+            </div>
+            
+          </div>
+          <div class = "card-footer">
+            <p class="card-text"><small class="text-muted">Added to Database: {{ game.addedTime}} &nbsp; | &nbsp; Last Updated: {{ game.updated_at }}</small></p>
+
+            <!-- Shows add to game buttons / edit and delete depending on who is logged in -->
+
+            {% if request.user.is_superuser or request.user|has_group:"GamesAdminUsers" %}
+            <input class = "btn btn-primary" type="button" onclick="location.href='{% url 'browserapp:browse_edit' game.gameID %}';" value="Edit" />
+            <input class = "btn btn-danger" type="button" onclick="location.href='{% url 'browserapp:browse_delete' game.gameID %}';" value="Delete" />
+            {% endif %}
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            
+          
+
+          {% comment %}
+          {% if game.addedToLibrary %}
+          {% endcomment %}
+
+
+          {% if user.is_authenticated %}
+
+            {% if gameInLibrary > 0 %}
+            <!-- Button sends to AJAX function -->
+            <button class = "btn btn-danger" id = "myGamesButton" onClick = "toggleGame({{ game.gameID }})">  
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+                  <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+                </svg> Remove from MyGames
+            </button>
+
+            {% else %}
+            
+
+            <button class = "btn btn-success" id = "myGamesButton" onClick = "toggleGame({{ game.gameID }})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+                  </svg> Add to MyGames
+            </button>
+            {% endif %}
+            
+          {% endif %}
+
+        </div>
+        </div>
+      </div>
+
+    </div>
+    
+
+    </div>
+
+</div>
+
+<!-- Display game data and cheats -->
+
+<div id = "currentGameCheats">
+    <hr>
+    <h2>Cheats and Guides available:</h2>
+    <p>{{ game.cheatData }}</p>
+</div>
+
+
+<!-- Alternate button -->
+{% comment %}
+<input type="button" onclick="location.href='{% url 'browserapp:addGametoLibrary' game.gameID %}';" value="Add to MyGames Test" />
+{% endcomment %}
+
+
+
+</body>
+
+
+
+{% endblock content %}

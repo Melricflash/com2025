@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load auth_extras %}
+
+{% block title %}
+    <title>Game Browser</title>
+{% endblock title %}
+
+
+{% block pagebio %}
+<div class="d-flex justify-content-center">
+    <h2 id = "pageBio" class = "">Browse our database for games!</h2>
+</div>
+{% endblock pagebio %}
+
+
+
+{% block content %}
+
+<!-- To make the entire card a link use class stretched-link -->
+
+<div id = "topratedPanel">
+    <h3><strong>Games</strong></h3>
+
+<div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    {% for game in game_list %}
+    <div class="col">
+      <div class="card h-100" style="width: 322px;">
+
+        <a href = "{% url 'browserapp:browse_detail' game.gameID %}">
+            <!-- <img src="../../../static/defaultcard.jpg" class="card-img-top" alt="{{ game.title }}"> -->
+            <img src="{{ game.coverImage.url }}" class="card-img-top" alt="{{ game.title }}">
+        </a>
+        
+        <div class="card-body">
+          <!-- Truncate game title if too long, same with description -->
+          <h5 class="card-title">{{ game.title | truncatechars:40}}&nbsp;&nbsp; 
+            <span class="badge text-bg-danger">Flash</span>
+          </h5>
+          <p class="card-text">{{ game.description | truncatechars:250}}</p>
+        </div>
+        <div class="card-footer">
+          <small class="">Last updated: {{ game.updated_at }}</small>
+        </div>
+      </div>
+
+    
+
+    </div>
+    {% endfor %}
+
+    
+</div>
+
+</div>
+
+
+<!-- Switch browse category buttons and upload button -->
+
+<div id = "userButtons"> 
+
+<div id = "browseSwitch">
+  <input class = "btn btn-warning" type="button" onclick="location.href='{% url 'browserapp:publisher_index' %}';" value="BROWSE PUBLISHERS" />
+</div>
+
+{% if request.user.is_superuser or request.user|has_group:"GamesAdminUsers" %}
+  <div id = "uploadButton">
+  <input class = "btn btn-warning" type = "button" onclick = "location.href = '{% url 'browserapp:browse_upload' %}';" value = "UPLOAD A GAME" />
+  </div>
+{% endif %}
+
+</div>
+
+{% endblock content %}

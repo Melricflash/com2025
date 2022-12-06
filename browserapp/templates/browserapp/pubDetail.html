@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load auth_extras %}
+
+
+{% block pagebio %}
+
+<div class="d-flex justify-content-center">
+    <h2 id = "pageBio" class = "">{{ publisher.publisherName }}</h2>
+</div>
+
+{% endblock pagebio %}
+
+
+{% block content %}
+
+<body>
+
+<div id = "gameDetails">
+
+    <div class = "d-flex justify-content-center">
+
+    <div class="card mb-3" id = "detailCard" style = "max-width: 1080px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <!-- <img src="../../../static/defaultcard.jpg" class="img-fluid rounded-start" alt="{{ game.title }}"> -->
+            <img src="{{ publisher.publisherImage.url }}" class="img-fluid rounded-start" alt="{{ publisher.publisherName }}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 class="card-title">{{publisher.publisherName}}</h2>
+              <h6 class="card-text">{{ publisher.publisherDescription }}</h6>
+            </div>
+            
+          </div>
+          <div class = "card-footer">
+            <p class="card-text"><small class="text-muted">Added to Database: {{ publisher.addedTime}} &nbsp; | &nbsp; Last Updated: {{ publisher.updatedTime }}</small></p>
+
+            {% if request.user.is_superuser or request.user|has_group:"GamesAdminUsers" %}
+            <input class = "btn btn-primary" type="button" onclick="location.href='{% url 'browserapp:publisher_edit' publisher.publisherID %}';" value="Edit" />
+            <input class = "btn btn-danger" type="button" onclick="location.href='{% url 'browserapp:publisher_delete' publisher.publisherID %}';" value="Delete" />
+            {% endif %}
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <input class = "btn btn-success" type = "button" value = "Add to MyList"> -->
+
+            <!-- Currently commented out but in the future, a user could also add a publisher to their library -->
+
+            <!-- <button class = "btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+                    <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+                  </svg> Add to MyGames
+            </button> -->
+            
+        </div>
+        </div>
+      </div>
+
+    </div>
+    
+
+    </div>
+
+</div>
+
+
+<!-- Games by the publisher, dynamically generated -->
+
+<div id = "topratedPanel">
+  <h3><strong>Games by {{ publisher.publisherName }}</strong></h3>
+
+<div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+  {% for game in game_list %}
+  <div class="col">
+    <div class="card h-100" style="width: 322px;">
+
+      <a href = "{% url 'browserapp:browse_detail' game.gameID %}">
+          <!-- <img src="../../../static/defaultcard.jpg" class="card-img-top" alt="{{ game.title }}"> -->
+          <img src="{{ game.coverImage.url }}" class="card-img-top" alt="{{ game.title }}">
+      </a>
+      
+      <div class="card-body">
+        <h5 class="card-title">{{ game.title | truncatechars:40}}&nbsp;&nbsp;
+          <span class="badge text-bg-danger">Flash</span>
+        </h5>
+        <p class="card-text">{{ game.description | truncatechars:250}}</p>
+      </div>
+      <div class="card-footer">
+        <small class="">Last updated: {{ game.updated_at }}</small>
+      </div>
+    </div>
+
+  
+
+  </div>
+  {% endfor %}
+
+  
+</div>
+
+
+</body>
+
+
+
+{% endblock content %}

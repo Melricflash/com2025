@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block pagebio %}
+<div class="d-flex justify-content-center">
+  <h2 id = "pageBio" class = "">Log In</h2>
+</div>
+{% endblock pagebio %}
+
+{% block content %}
+
+<h2>Log In</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+ <button class = "btn btn-primary" type="submit">Log In</button>
+ 
+</form>
+
+<div id = "browseSwitch">
+    <input class = "btn btn-warning" type="button" onclick="location.href='{% url 'homeapp:signup_user' %}';" value="Register an account" />
+  </div>
+
+{% endblock content %}

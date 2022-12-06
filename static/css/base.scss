@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+// $navfont: 'Nunito Sans', sans-serif;
+$navaltfont: 'Kanit', sans-serif;
+
+
+$navcolor: rgb(0, 0, 0);
+
+$subtitlecolor: hotpink;
+
+$elementheadingcolor: rgb(255, 255, 255);
+
+$cardfootercolor: rgba(0, 0, 0, 0.9);
+
+$footerbgcolor: #000000;
+
+// global stylings
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: $navaltfont;
+
+}
+
+body {
+    background-image: url("../sitebg2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+// global stylings
+
+li, a, button {
+    font-family: $navaltfont;
+    font-weight: 500;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: #edf0f1; // specifically used in this scenario
+    text-decoration: none;
+}
+
+a:hover {
+    color: $subtitlecolor;
+}
+
+.formfield{
+    display: block;
+}
+
+.form-control {
+    display: block;
+}
+
+#contactForm {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    color: $elementheadingcolor;
+}
+
+
+// Styling for the Page Bio
+
+#pageBio {
+    margin-top: 1%;
+    text-align: center;
+    color: $elementheadingcolor;
+    
+    background-color: $navcolor;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+
+// Centering the carousel element
+
+.carousel {
+    margin:auto;
+}
+
+@media all and (max-width: 576px) {
+    #featuredPanel {
+        margin-top: 6%;
+    }
+    
+}
+
+@media all and (min-width: 576px) { // tag so only applies on devices that are large
+    #featuredPanel {
+        width: 71%; // makes carousel inline with cards
+        margin-top: 2%;
+        margin-left: 2%;
+    }
+}
+
+// default values for everywhere
+#featuredPanel {
+    background-color: $navcolor;
+}
+
+
+#featuredPanel h3 , h5{
+    //margin-left: 2%;
+    color: $subtitlecolor;
+    text-align: center;
+}
+
+@media all and (min-width: 576px) { // tag so only applies on devices that are large
+#featuredPanel .carousel-inner img {
+    width: 640px;
+    height: 360px;
+}
+}
+
+// darkens carousel items to see media controls
+#featuredPanel .carousel-inner:after {
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,0.2);
+}
+
+// These stylings are similar to topRated Panel but is designed so I can use two stylings for different categories in the future.
+#mostrecentPanel {
+    margin-top: 5%;
+    //margin-left: 2%;
+}
+
+#mostrecentPanel .card {
+    background-color: $subtitlecolor;
+    margin-left: 2%;
+}
+
+#mostrecentPanel h3 {
+    color: $elementheadingcolor;
+}
+
+@media all and (min-width: 576px) {
+    #mostrecentPanel h3 {
+        margin-left: 1%;
+        font-size: 300%;
+        color: $elementheadingcolor;
+}
+}
+
+@media all and (max-width: 576px) {
+    #mostrecentPanel {
+        margin: auto;
+        margin-top: 5%;
+    }
+
+    #mostrecentPanel .card {
+        background-color: $subtitlecolor;
+    }
+
+    #mostrecentPanel h3 {
+        text-align: center;
+    }
+
+}
+
+
+
+// debug again
+
+// #topratedPanel .row {
+//     background-color: #781212;
+// }
+
+// #topratedPanel .col {
+//     background-color: #1ab31a;
+// }
+
+#mostrecentPanel .card-body {
+    background-color: #000000;
+    color: $elementheadingcolor;
+}
+
+#mostrecentPanel .col img {
+    width: 320px;
+    height: 180px;
+}
+
+#mostrecentPanel .card-footer {
+    background-color: $cardfootercolor;
+    color: $subtitlecolor;
+    text-align: center;
+}
+
+
+
+#topratedPanel {
+    margin-top: 5%;
+}
+
+#topratedPanel .card {
+    background-color: $subtitlecolor;
+    margin-left: 2%;
+}
+
+#topratedPanel h3 {
+    color: $elementheadingcolor;
+}
+
+// Stylings for different sizes
+
+@media all and (min-width: 576px) {
+    #topratedPanel h3 {
+        margin-left: 1%;
+        font-size: 300%;
+        color: $elementheadingcolor;
+}
+}
+
+@media all and (max-width: 576px) {
+    #topratedPanel {
+        margin: auto;
+        margin-top: 5%;
+    }
+
+    #topratedPanel .card {
+        background-color: $subtitlecolor;
+    }
+
+    #topratedPanel h3 {
+        text-align: center;
+    }
+
+}
+
+// debug card view, uncomment to see
+
+// #topratedPanel .row {
+//     background-color: #781212;
+// }
+
+// #topratedPanel .col {
+//     background-color: #1ab31a;
+// }
+
+#topratedPanel .card-body {
+    background-color: #000000;
+    color: $elementheadingcolor;
+}
+
+#topratedPanel .col img {
+    width: 320px;
+    height: 180px;
+}
+
+#topratedPanel .card-footer {
+    
+    // background-color: rgb(28, 26, 26);
+    background-color: $cardfootercolor;
+    color: $subtitlecolor;
+    text-align: center;
+}
+
+
+// Index View buttons
+
+#userButtons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#browseSwitch, #uploadButton {
+    display: inline-block;
+    text-align: center;
+    padding-left: 1%;
+    padding-top: 2%;
+    font: $navaltfont;
+    color: $elementheadingcolor;
+}
+
+
+#gameindexPanel {
+    width: 100%;
+}
+
+//Game detail view CSS
+
+#gameDetails #detailCard {
+    background-color: $subtitlecolor;
+}
+
+#gameDetails img {
+    height: 320px;
+    width: 480px;
+}
+
+#gameDetails .card-body {
+    background-color: $navcolor;
+    height: 320px;
+}
+
+#gameDetails h2 {
+    text-align: center;
+    color: $subtitlecolor;
+}
+
+#gameDetails h4 {
+    text-align: center;
+    color: $elementheadingcolor;
+}
+
+#gameDetails h6 {
+    color: $elementheadingcolor;
+}
+
+#gameDetails .card-footer {
+    background-color:rgba(0, 0, 0, 0.9);
+}
+
+#gameDetails .card-footer .card-text {
+    text-align: center;
+    display: inline-block;
+    padding-top: 1%;
+    padding-right: 10%;
+}
+
+
+#gameDetails .card-footer button {
+    display: inline-block;
+    padding-top: 0.5%;
+}
+
+#gameDetails .card-footer input {
+    margin-left: 0.5%;
+    display: inline-block;
+    
+}
+
+#currentGameCheats {
+    background-color: $navcolor;
+    color: $elementheadingcolor;
+
+}
+
+#currentGameCheats h2 {
+    text-align: center;
+}
+
+#currentGameCheats p {
+    text-align: center;
+}
+
+// edit view css
+
+#editForm {
+    width: 50%;
+    color: $elementheadingcolor;
+    margin: auto;
+    text-align: center;
+}
+
+
+// Default Django alerts CSS
+
+.success {
+    background-color: #1ab31a;
+    text-align: center;
+}
+
+.error, .errorlist{
+    background-color: #781212;
+    text-align: center;
+}
+
+// Footer CSS
+
+#footerText {
+    font-family: $navaltfont;
+    text-align: center;
+    color: $subtitlecolor;
+}
+
+#pageFooter {
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: $footerbgcolor;
+}
+
+
+
+
+   

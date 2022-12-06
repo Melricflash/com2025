@@ -1,0 +1,271 @@
+<!-- Using base.html -->
+
+<!-- Commenting out DTL doesnt stop it from being read and applied Delete to see changes-->
+<!-- use % comment % and % endcomment % to comment out code-->
+
+{% extends "base.html" %}
+
+{% block appcss %}
+<!-- In case I want to change the page stylings for some reason -->
+{% endblock appcss %}
+
+{% block pagebio %}
+<div class="d-flex justify-content-center">
+  <h2 id = "pageBio" class = "">Welcome to <strong>MelricFlashCheats!</strong></h2>
+</div>
+{% endblock pagebio %}
+
+
+{% block content %}
+
+
+<div class="d-flex justify-content-center">  
+<div id = "featuredPanel">
+<h3><strong>Featured Games</strong></h3>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+
+<!-- Featured Games dont exist yet, so these images are static -->
+
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+        <!-- Featured Item 1 -->
+      <div class="carousel-item active" id = "featured1">
+        <img src="../../../static/futsal3banner.png" class="d-block w-100" alt="...">
+      </div>
+      <!-- Featured Item 2 -->
+      <div class="carousel-item" id = "featured2">
+        <img src="../../../static/fancypants.jpg" class="d-block w-100" alt="...">
+      </div>
+      <!-- Featured Item 3 -->
+      <div class="carousel-item" id = "featured3">
+        <img src="../../../static/electricman2.png" class="d-block w-100" alt="...">
+      </div>
+
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
+    </div>
+     <h5>Find them in our Game Browser!</h5>
+    </div>
+
+</div> 
+</div>
+<!-- check this div incase something breaks -->
+    
+
+<!-- Top rated panel generation -->
+<!-- <div class="d-flex justify-content-center">
+<div id = "topratedPanel">
+    <h3><strong>Top Rated Games</strong></h3>
+
+<div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> 
+    <div class="col">
+      <div class="card h-100" style="width: 322px;">
+        <img src="../../../static/madnessCombat.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Madness Combat: Project Nexus</h5>
+          <p class="card-text">MADNESS: Project Nexus is a third-person Run n' Gun / Beat'Em Up filled with arcade-style action and button-mashing brutality. Gun your way through droves of bad guys in the Story Campaign, or build your perfect killing machine in the neverending onslaught of Arena Mode.</p>
+        </div>
+        <div class="card-footer">
+          <small class="">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100" style="width: 322px;">
+        <img src="../../../static/papa-s-pizzeria.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Papa's Pizzeria</h5>
+          <p class="card-text">Papa Louie has left the pizza shop! It is up to you to take over the business. You are playing as Roy, who must take over the pizzeria and make the orders accurately and on time!</p>
+        </div>
+        <div class="card-footer">
+          <small class="">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100" style="width: 322px;">
+        <img src="../../../static/exitpath2.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Exit Path 2</h5>
+          <p class="card-text">Exit Path is a multiplayer and uniplayer guantlet-style racing game through perilous traps and platforms. Advance through 30 uniplayer levels or take on other challengers in multiplayer.</p>
+        </div>
+        <div class="card-footer">
+          <small class="">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  </div>
+
+  </div> -->
+
+
+  <div class="d-flex justify-content-center">
+    <div id = "topratedPanel">
+        <h3><strong>Top Rated Games</strong></h3>
+    
+    <div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-{{dgcounter}} g-4"> 
+
+      {% for topratedgames in toprated_list %}
+
+        <div class="col">
+          <div class="card h-100" style="width: 322px;">
+            <a href = "{% url 'browserapp:browse_detail' topratedgames.gameID %}">
+              <img src="{{topratedgames.coverImage.url}}" class="card-img-top" alt="{{topratedgames.title}}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">{{topratedgames.title}}</h5>
+              <p class="card-text">{{topratedgames.description}}</p>
+            </div>
+            <div class="card-footer">
+              <small class="">Last updated: {{topratedgames.updated_at}}</small>
+            </div>
+          </div>
+        </div> 
+
+      {% endfor %}
+
+      </div>
+    
+      </div>
+    
+      </div>
+
+  
+  <!-- Most recent panel generation -->
+  <!-- <div class="d-flex justify-content-center">
+    <div id = "mostrecentPanel">
+        <h3><strong>Most Recent Games</strong></h3>
+    
+    <div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> 
+        <div class="col">
+          <div class="card h-100" style="width: 322px;">
+            <img src="../../../static/btd4.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Bloons Tower Defense 4</h5>
+              <p class="card-text">Bloons Tower Defense 4 is a classic tower defense game initially released in Flash. Defend the path by placing various defenses tactically around the map. Upgrade them and unlock more as you get further through the game.</p>
+            </div>
+            <div class="card-footer">
+              <small class="">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col">
+          <div class="card h-100" style="width: 322px;">
+            <img src="../../../static/stickrpg.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Stick RPG</h5>
+              <p class="card-text">You control a stickman who has fallen into the middle of a large city. You can explore the city freely and choose your own path in life. You can get a job, earn money and train hard to improve your skills. Every decision you make matters and has a profound impact on your future and actions. You can interact with other stick people and objects and spend your hard-earned money.</p>
+            </div>
+            <div class="card-footer">
+              <small class="">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col">
+          <div class="card h-100" style="width: 322px;">
+            <img src="../../../static/bloxorz.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">BLOXORZ</h5>
+              <p class="card-text">Bloxorz is a tricky puzzle game that tests your logical skills and sheer brain power. The objective is to get the block into the square hole and avoid falling off the edge. Put your brain to the test and see how far you get!</p>
+            </div>
+            <div class="card-footer">
+              <small class="">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+    
+    
+      </div>
+    
+      </div>
+    
+      </div> -->
+
+
+    <!-- Most recent panel generation -->
+    <div class="d-flex justify-content-center">
+      <div id = "mostrecentPanel">
+          <h3><strong>Most Recent Games</strong></h3>
+      
+      
+      <div class="row m-auto row-cols-1 row-cols-md-2 row-cols-lg-{{dgcounter}} g-4"> 
+
+        {% for recentgames in recentgames_list %}
+
+          <div class="col">
+            <div class="card h-100" style="width: 322px;">
+
+              <a href = "{% url 'browserapp:browse_detail' recentgames.gameID %}">
+                <img src="{{recentgames.coverImage.url}}" class="card-img-top" alt="{{recentgames.title}}">
+              </a>
+
+              <div class="card-body">
+                <h5 class="card-title">{{recentgames.title}}</h5>
+                <p class="card-text">{{recentgames.description}}</p>
+              </div>
+              <div class="card-footer">
+                <small class="">Last updated: {{recentgames.updated_at}}</small>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  
+  <!-- Debugging views, uncomment to see details on context variables being returned -->
+  
+  {% comment %}
+  <p>{{gamecounter}}</p>
+  <p>41003: Number Test</p>
+  <p>Dynamic: {{dgcounter}}</p>
+  <p>TRgames: {{toprated_list}}</p>
+  {% endcomment %}
+
+
+  {% comment %}
+  {% for topratedgames in toprated_list %}
+    {{topratedgames}}
+  {% endfor %}
+  {% endcomment %}
+
+  {% comment %}
+  {% for recentgames in recentgames_list %}
+
+      {{recentgames}}
+
+  {% endfor %}
+  {% endcomment %}
+
+{% endblock content %}
+
+
+
+
+
